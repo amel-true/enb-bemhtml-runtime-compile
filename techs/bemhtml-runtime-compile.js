@@ -37,7 +37,7 @@ module.exports = require('enb/lib/build-flow').create()
 				const nextTick = fs.readFileSync(filename);
 				res.unshift(`
 					${nextTick}
-					nextTick( () => {
+					nextTick( function() {
 					 BEMHTML.compile(function() {
 				`);
 				res.push('})})');
