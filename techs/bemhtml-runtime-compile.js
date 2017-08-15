@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * enb-bemhtml-runtime-compile
  * ==================
@@ -20,7 +22,7 @@ var vowFs = require('enb/lib/fs/async-fs');
 var fs = require('fs');
 
 module.exports = require('enb/lib/build-flow').create()
-	.name('bemhtml-no-compile')
+	.name('bemhtml-runtime-compile')
 	.target('target', '?.bemhtml.js')
 	.useFileList(['bemhtml.js'])
 	.builder(function (sourceFiles) {
@@ -32,17 +34,17 @@ module.exports = require('enb/lib/build-flow').create()
 				return `${pre} ${data} ${post}`;
 			});
 		})).then(function (res) {
-			if (res.length > 0) {
+			if (res.length > 0)  {
 				const filename = require.resolve('../lib/nexttick');
 				const nextTick = fs.readFileSync(filename);
-				res.unshift(`
+				return `
 					${nextTick}
-					nextTick( function() {
+					nextTick( function(){
 					 BEMHTML.compile(function() {
-				`);
-				res.push('})})');
+					${res.join('\n')}
+				})})`;
 			}
-			return res.join('\n');
+			return '';
 		});
 	})
 	.createTech();

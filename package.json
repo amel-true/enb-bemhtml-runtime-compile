@@ -1,6 +1,6 @@
 {
   "name": "enb-bemhtml-runtime-compile",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Enb bemhtml tech",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
